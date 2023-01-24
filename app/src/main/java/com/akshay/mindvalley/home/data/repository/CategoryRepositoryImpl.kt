@@ -13,19 +13,18 @@ class CategoryRepositoryImpl @Inject constructor(
     private val mapper: CategoryDTOtoEntityMapper
 ) : CategoryRepository {
 
-    override suspend fun fetchCategoryList(): Result<List<CategoryEntity>> {
+    override suspend fun fetchCategoryList(): Result<List<CategoryEntity>> = kotlin.runCatching {
         val remoteData = remoteCategoryDataSource.getCategoryDTO()
-        return kotlin.runCatching {
-            if (remoteData.isNotEmpty()) {
-                deleteCategory() // We are deleting it because we are not use we will get new from server
-                val localData = mapper.map(remoteData)
-                saveCategory(localData)
-                localData
-            } else {
-                localCategoryDataSource.getEntities()
-            }
+        if (remoteData.isNotEmpty()) {
+            deleteCategory() // We are deleting it because we are not use we will get new from server
+            val localData = mapper.map(remoteData)
+            saveCategory(localData)
+            localData
+        } else {
+            localCategoryDataSource.getEntities()
         }
     }
+
 
     override suspend fun deleteCategory() = localCategoryDataSource.deleteEntities()
 
