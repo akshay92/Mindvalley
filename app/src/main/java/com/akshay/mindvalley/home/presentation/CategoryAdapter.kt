@@ -23,7 +23,7 @@ class CategoryAdapter : ListAdapter<CategoryItem, CategoryAdapter.ItemViewHolder
 
     class ItemViewHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CategoryItem) {
-            binding.chip.text = item.name
+            binding.titleTx.text = item.name
         }
     }
 
@@ -37,6 +37,4 @@ class CategoryAdapter : ListAdapter<CategoryItem, CategoryAdapter.ItemViewHolder
             return oldItem == newItem
         }
     }
-
-
 }

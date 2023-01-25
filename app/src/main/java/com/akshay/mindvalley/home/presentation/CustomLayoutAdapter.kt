@@ -8,18 +8,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.akshay.mindvalley.R
-import com.akshay.mindvalley.databinding.ItemNewEpisodeBinding
+import com.akshay.mindvalley.databinding.ItemCustomBinding
 
-class NewEpisodeAdapter(
+class CustomLayoutAdapter(
     private val layout: LayoutManager,
     private val title: String,
     private val lifecycleOwner: LifecycleOwner,
     private val adapter: ListAdapter<*, *>
-) : ListAdapter<String, NewEpisodeAdapter.ItemViewHolder>(diffCallback) {
+) : ListAdapter<String, CustomLayoutAdapter.ItemViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
-            ItemNewEpisodeBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            ItemCustomBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             adapter,
             title,
             layout
@@ -39,7 +39,7 @@ class NewEpisodeAdapter(
     }
 
     class ItemViewHolder(
-        val binding: ItemNewEpisodeBinding,
+        val binding: ItemCustomBinding,
         adapter: ListAdapter<*, *>,
         val title: String,
         layout: LayoutManager

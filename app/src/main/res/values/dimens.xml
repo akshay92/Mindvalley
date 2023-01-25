@@ -4,4 +4,20 @@
     <dimen name="medium_text_size">20sp</dimen>
     <dimen name="small_text_size">16sp</dimen>
     <dimen name="extra_small_text_size">13sp</dimen>
+    <dimen name="medium_margin">20dp</dimen>
+    <dimen name="xsmall_margin">10dp</dimen>
+    <dimen name="xlarge_margin">30dp</dimen>
+    <dimen name="small_margin">16dp</dimen>
+    <dimen name="width_image">50dp</dimen>
+    <dimen name="height_width">50dp</dimen>
+    <dimen name="dp_14">14dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="image_tile_width">152dp</dimen>
+    <dimen name="course_card_height">228dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_7">7dp</dimen>
+    <dimen name="serice_card_width">180dp</dimen>
+    <dimen name="card_elevation">1dp</dimen>
 </resources>

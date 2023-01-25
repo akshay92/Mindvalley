@@ -11,10 +11,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="New Episode"
+            android:layout_marginTop="@dimen/xlarge_margin"
+            android:text="@string/title_new_episode"
             android:textColor="@color/gray_dark"
             android:textSize="@dimen/medium_text_size"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -29,10 +31,10 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginHorizontal="@dimen/xsmall_margin"
+            android:layout_marginTop="@dimen/xlarge_margin"
             android:background="@color/divider"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView" />

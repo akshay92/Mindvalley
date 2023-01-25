@@ -18,18 +18,19 @@ class HomeActivity : AppCompatActivity() {
     private val mainViewModel: HomeViewModel by viewModels()
     private lateinit var concatAdapter: ConcatAdapter
     private lateinit var channelAdapter: ChannelAdapter
-    private lateinit var newEpisodeAdapter: NewEpisodeAdapter
-    private lateinit var categoryGridAdapter: NewEpisodeAdapter
-    private lateinit var showMediaContentAdapter: ShowMediaContentAdapter
+    private lateinit var newEpisodeAdapter: CustomLayoutAdapter
+    private lateinit var categoryGridAdapter: CustomLayoutAdapter
+    private lateinit var showMediaContentAdapter: CourseMediaAdapter
     private lateinit var categoryAdapter: CategoryAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         ActivityHomeBinding.inflate(layoutInflater).also { binding = it }
         setContentView(binding.root)
 
         binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isEnabled = false
             mainViewModel.loadContent()
         }
 
@@ -44,18 +45,30 @@ class HomeActivity : AppCompatActivity() {
             channelContentList.observe(this@HomeActivity, channelAdapter::submitList)
             categoryList.observe(this@HomeActivity, categoryAdapter::submitList)
 
-            loading.observe(this@HomeActivity) { data ->
+            viewState.observe(this@HomeActivity) { data ->
                 data?.let {
                     with(binding) {
-                        if (it) {
-                            contentLayout.visibility = View.GONE
-                            progressLoading.visibility = View.VISIBLE
-
-                        } else {
-                            contentLayout.visibility = View.VISIBLE
-                            progressLoading.visibility = View.GONE
-                        }
                         swipeRefresh.isRefreshing = false
+                        when (it) {
+                            ViewState.Loading -> {
+                                contentLayout.visibility = View.GONE
+                                progressLoading.visibility = View.VISIBLE
+                                errorTx.visibility = View.GONE
+                                swipeRefresh.isRefreshing = false
+                            }
+                            ViewState.Loaded -> {
+                                contentLayout.visibility = View.VISIBLE
+                                progressLoading.visibility = View.GONE
+                                errorTx.visibility = View.GONE
+                                binding.swipeRefresh.isEnabled = true
+                            }
+                            ViewState.Failure -> {
+                                contentLayout.visibility = View.GONE
+                                progressLoading.visibility = View.GONE
+                                errorTx.visibility = View.VISIBLE
+                                binding.swipeRefresh.isEnabled = true
+                            }
+                        }
                     }
                 }
 
@@ -66,11 +79,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun initializeAdapter() {
         channelAdapter = ChannelAdapter()
-        showMediaContentAdapter = ShowMediaContentAdapter()
+        showMediaContentAdapter = CourseMediaAdapter()
         categoryAdapter = CategoryAdapter()
 
 
-        newEpisodeAdapter = NewEpisodeAdapter(
+        newEpisodeAdapter = CustomLayoutAdapter(
             LinearLayoutManager(
                 this,
                 LinearLayoutManager.HORIZONTAL,
@@ -78,7 +91,7 @@ class HomeActivity : AppCompatActivity() {
             ), getString(R.string.title_new_episode), this, showMediaContentAdapter
         )
 
-        categoryGridAdapter = NewEpisodeAdapter(
+        categoryGridAdapter = CustomLayoutAdapter(
             GridLayoutManager(
                 this,
                 2
@@ -92,4 +105,6 @@ class HomeActivity : AppCompatActivity() {
         )
         binding.mainRecyclerView.adapter = concatAdapter
     }
+
+
 }

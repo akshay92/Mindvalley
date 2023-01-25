@@ -27,8 +27,10 @@ class ChannelAdapter : ListAdapter<ChannelItem, ChannelAdapter.ItemViewHolder>(D
     class ItemViewHolder(val binding: ItemChannelBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChannelItem) = with(binding) {
             Glide.with(binding.root.context).load(item.iconAsset)
+                .placeholder(R.drawable.channel_place_holder)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(binding.channelIm)
+
             binding.episodeCountTx.text = if (item.mediaCount == 1)
                 binding.root.context.getString(R.string.episode, item.mediaCount)
             else
@@ -39,10 +41,15 @@ class ChannelAdapter : ListAdapter<ChannelItem, ChannelAdapter.ItemViewHolder>(D
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            val adapter = ShowMediaContentAdapter()
+
+            val adapter = getAdapterBasisOfContent(item)
             binding.recyclerView.adapter = adapter
-            adapter.submitList(item.course + item.series)
+            adapter.submitList((item.course + item.series).subList(0,MediaAdapter.itemCountLimit))
         }
+
+        private fun getAdapterBasisOfContent(item: ChannelItem) =
+            if (item.series.isEmpty()) CourseMediaAdapter() else SeriesMediaAdapter()
+
     }
 
     private class DiffCallback : DiffUtil.ItemCallback<ChannelItem>() {

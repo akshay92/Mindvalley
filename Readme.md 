@@ -1,0 +1,29 @@
+* Architecture
+    * Clean Architecture + MVVM
+    * Room db
+    * Retrofit
+    * Hilt
+    * Always get data from remote them delete old data and update new in db if fail to get data from remote then get data from db
+
+* Test
+       * [Unit Tests]([JUnit4]
+       * [Mockk](https://mockk.io/) Mockking library for Kotlin
+
+
+1. What parts of the test did you find challenging and why?
+   Answer : UI part because I did not do this type test case in complex UI
+
+2.  What feature would you like to add in the future to improve the
+  project?
+   Answer : 1. Search and filter show more by category
+            2. Some logic in UI That might be move on domain layer
+            3. I will add more test case
+            4. Database table also can improve and naming can be much better some place
+
+
+
+
+   Know Issue
+   1. I did not wrote UI and mapper test case
+   2. The channel text should be scroll It is fixed on header some scroll issue face in category section
+   3. Naming can be improve

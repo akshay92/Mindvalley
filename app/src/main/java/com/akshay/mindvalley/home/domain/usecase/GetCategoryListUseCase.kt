@@ -1,5 +1,6 @@
 package com.akshay.mindvalley.home.domain.usecase
 
+import com.akshay.mindvalley.home.domain.error.EmptyDataException
 import com.akshay.mindvalley.home.domain.mapper.CategoryEntityToItemMapper
 import com.akshay.mindvalley.home.domain.model.CategoryItem
 import com.akshay.mindvalley.home.domain.repository.CategoryRepository
@@ -10,10 +11,12 @@ class GetCategoryListUseCase  @Inject constructor(
     private val mapper: CategoryEntityToItemMapper
 ) {
 
-    suspend fun getCategoryList(): Result<List<CategoryItem>> {
-        val result = repository.fetchCategoryList()
-        return kotlin.runCatching {
-            mapper.map(result.getOrThrow())
+    suspend fun getCategoryList(): Result<List<CategoryItem>> = kotlin.runCatching {
+        val result = repository.fetchCategoryList().getOrThrow()
+        if (result.isEmpty()) {
+            throw EmptyDataException()
+        } else {
+            mapper.map(result)
         }
     }
 }

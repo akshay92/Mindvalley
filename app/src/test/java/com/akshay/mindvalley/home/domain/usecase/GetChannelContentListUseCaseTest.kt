@@ -1,15 +1,15 @@
 package com.akshay.mindvalley.home.domain.usecase
 
 import com.akshay.mindvalley.home.data.local.model.ChannelEntity
+import com.akshay.mindvalley.home.domain.error.EmptyDataException
 import com.akshay.mindvalley.home.domain.mapper.ChannelEntityToItemMapper
 import com.akshay.mindvalley.home.domain.mapper.MediaEntityToItemMapper
 import com.akshay.mindvalley.home.domain.repository.ChannelRepository
-import com.akshay.mindvalley.home.domain.usecase.GetChannelContentListUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
@@ -42,9 +42,20 @@ class GetChannelContentListUseCaseTest {
 
         val result = getChannelContentListUseCase.getChannelList()
 
-        Assert.assertTrue(result.isSuccess)
-        Assert.assertTrue(result.getOrNull()?.size == testData.size)
+        assertTrue(result.isSuccess)
+        assertTrue(result.getOrNull()?.size == testData.size)
     }
+
+    @Test
+    fun `when get empty response then return empty exception`() = runTest {
+        coEvery { repository.fetchChannelContent() } returns Result.success(emptyList())
+
+        val result = getChannelContentListUseCase.getChannelList()
+
+        assertTrue(result.isFailure)
+        assertTrue(result.exceptionOrNull() is EmptyDataException)
+    }
+
 
 
     @Test
@@ -54,8 +65,8 @@ class GetChannelContentListUseCaseTest {
 
         val result = getChannelContentListUseCase.getChannelList()
 
-        Assert.assertTrue(result.isFailure)
-        Assert.assertEquals(result.exceptionOrNull(), testData)
+        assertTrue(result.isFailure)
+        assertEquals(result.exceptionOrNull(), testData)
     }
 
 }

@@ -5,6 +5,7 @@
     <string name="episodes">%d episodes</string>
     <string name="title_new_episode">New Episodes</string>
     <string name="title_categories">Browse by categories</string>
+    <string name="default_error_msg">Something went wrong please swipe refresh</string>
 
 
 </resources>

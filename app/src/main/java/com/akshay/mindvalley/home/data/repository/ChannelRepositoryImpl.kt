@@ -16,7 +16,6 @@ class ChannelRepositoryImpl @Inject constructor(
 
     override suspend fun fetchChannelContent(): Result<List<ChannelEntity>> {
         val remote = remoteChannelDataSource.getChannelDTO()
-        Log.v("ChannelRepositoryImp","$remote")
         return kotlin.runCatching {
             if (remote.isNotEmpty()) {
                 val local = mapper.map(remote)
