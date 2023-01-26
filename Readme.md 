@@ -3,6 +3,9 @@
     * Room db
     * Retrofit
     * Hilt
+    * Circle image lib we can create our own
+    * Coroutine
+    * Glide
     * Always get data from remote them delete old data and update new in db if fail to get data from remote then get data from db
 
 * Test
@@ -19,11 +22,16 @@
             2. Some logic in UI That might be move on domain layer
             3. I will add more test case
             4. Database table also can improve and naming can be much better some place
+            5. Url should get from remote config or build config
+            6. Database can be encrypted and add more option to data uniqueness.
+            7. Add proguard
+            8. Show more course and series  option
+            9. Network handling for image download can be better
 
 
-
-
-   Know Issue
-   1. I did not wrote UI and mapper test case
-   2. The channel text should be scroll It is fixed on header some scroll issue face in category section
-   3. Naming can be improve
+   Known Issue
+   1. I did not write UI and mapper unit test case
+   2. The channel text should be scroll It is fix on header some scroll issue face in category section
+   3. Naming of class can be improve
+   4. I did not add palace holder series and course  image
+   5. If network off so issue in image download

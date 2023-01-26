@@ -16,6 +16,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
+    val url  = "https://pastebin.com/raw/"
+
     @Singleton
     @Provides
     fun provideGson() = Gson()
@@ -26,7 +28,7 @@ class NetworkModule {
         gson: Gson
     ): ChannelService {
         return Retrofit.Builder()
-            .baseUrl("https://pastebin.com/raw/")  // We should get it from build config
+            .baseUrl(url)  // We should get it from build config
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build().create(ChannelService::class.java)
     }
@@ -37,7 +39,7 @@ class NetworkModule {
         gson: Gson
     ): NewEpisodeService {
         return Retrofit.Builder()
-            .baseUrl("https://pastebin.com/raw/")  // We should get it from build config
+            .baseUrl(url)  // We should get it from build config
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build().create(NewEpisodeService::class.java)
     }
@@ -49,7 +51,7 @@ class NetworkModule {
         gson: Gson
     ): CategoryService {
         return Retrofit.Builder()
-            .baseUrl("https://pastebin.com/raw/")  // We should get it from build config
+            .baseUrl(url)  // We should get it from build config
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build().create(CategoryService::class.java)
     }
