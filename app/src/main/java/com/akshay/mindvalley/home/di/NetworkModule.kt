@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
-    val url  = "https://pastebin.com/raw/"
+    private val url  = "https://pastebin.com/raw/"
 
     @Singleton
     @Provides
